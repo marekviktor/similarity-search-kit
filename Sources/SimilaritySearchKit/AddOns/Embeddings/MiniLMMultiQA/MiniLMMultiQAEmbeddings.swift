@@ -9,7 +9,6 @@ import Foundation
 import CoreML
 import SimilaritySearchKit
 
-@available(macOS 12.0, iOS 15.0, *)
 public class MultiQAMiniLMEmbeddings: EmbeddingsProtocol {
     public let model: multi_qa_MiniLM_L6_cos_v1
     public let tokenizer: BertTokenizer

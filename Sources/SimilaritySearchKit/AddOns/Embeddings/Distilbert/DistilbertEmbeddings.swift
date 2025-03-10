@@ -9,7 +9,6 @@ import Foundation
 import CoreML
 import SimilaritySearchKit
 
-@available(macOS 13.0, iOS 16.0, *)
 public class DistilbertEmbeddings: EmbeddingsProtocol {
     public let model: msmarco_distilbert_base_tas_b_512_single_quantized
     public let tokenizer: BertTokenizer

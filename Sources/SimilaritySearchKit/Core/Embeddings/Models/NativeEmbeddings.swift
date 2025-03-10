@@ -13,7 +13,6 @@ public enum NativeEmbeddingType {
     case sentenceEmbedding
 }
 
-@available(macOS 11.0, iOS 15.0, *)
 public class NativeEmbeddings: EmbeddingsProtocol {
     public let model: ModelActor
     public let tokenizer: any TokenizerProtocol

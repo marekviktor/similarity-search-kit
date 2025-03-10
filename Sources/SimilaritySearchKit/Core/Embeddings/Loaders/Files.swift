@@ -8,8 +8,8 @@ import Foundation
 import Dispatch
 import PDFKit
 import RegexBuilder
+import SwiftData
 
-@available(macOS 13.0, iOS 16.0, *)
 public class Files {
     public init() {}
 
@@ -191,15 +191,23 @@ public class Files {
     }
 }
 
-@available(macOS 13.0, iOS 16.0, *)
-public struct DiskItem: Identifiable, Hashable {
+@Model
+public class DiskItem: Identifiable, Hashable {
     public var id = UUID()
-    public let fileId = UUID()
-    public let name: String
-    public let fileUrl: URL
-    public let diskSize: Int64
+    public var fileId = UUID()
+    public var name: String
+    public var fileUrl: URL
+    public var diskSize: Int64
     public var children: [DiskItem]?
 
+    public static func == (lhs: DiskItem, rhs: DiskItem) -> Bool {
+        return lhs.id == rhs.id
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
     // Initializes a DiskItem from the given URL and resource values
     init(url: URL, isDirectory: Bool, fileSize: Int64, onProgress: ((Int64, Int, Int, String?) -> Void)? = nil) async throws {
         self.fileUrl = url
@@ -235,11 +243,7 @@ public struct DiskItem: Identifiable, Hashable {
         self.diskSize = diskSize
         self.children = children
     }
-
-    public init(withoutChildren diskItem: DiskItem) {
-        self.init(name: diskItem.name, fileUrl: diskItem.fileUrl, diskSize: diskItem.diskSize, children: nil)
-    }
-
+    
     // Processes the task group for the given directory contents
     private static func processTaskGroup(contents: [URL], onProgress: ((Int64, Int, Int, String?) -> Void)? = nil) async throws -> ([DiskItem], Int64, Int, Int) {
         var childItems: [DiskItem] = []
