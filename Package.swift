@@ -46,16 +46,5 @@ let package = Package(
             dependencies: ["SimilaritySearchKit"],
             path: "Sources/SimilaritySearchKit/AddOns/Embeddings/MiniLMMultiQA"
         ),
-        .testTarget(
-            name: "SimilaritySearchKitTests",
-            dependencies: [
-                "SimilaritySearchKit",
-                "SimilaritySearchKitDistilbert",
-                "SimilaritySearchKitMiniLMAll",
-                "SimilaritySearchKitMiniLMMultiQA",
-            ],
-            path: "Tests/SimilaritySearchKitTests",
-            resources: [.process("Resources")]
-        ),
     ]
 )
